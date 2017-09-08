@@ -79,4 +79,10 @@ public class Course {
 		this.numberOfStudentsEnrolled = numberOfStudentsEnrolled;
 	}
 	
+	public String toString()
+	{
+		return "CourseID:" + courseID + ", CourseName:" + courseName + ", EnrollmentLimit:" 
+				+ enrollmentLimit + ", Students Enrolled:" + numberOfStudentsEnrolled;
+	}
+	
 }
