@@ -54,6 +54,7 @@ public class MainMenu {
 	public static void loginPage(Scanner sc)
 	{
 		Boolean isRegistered = false;
+		Student student = new Student();
 		String studentID;
 		do
 		{
@@ -89,6 +90,9 @@ public class MainMenu {
 					if (info.length == 3 && info[2].equals(studentID))
 					{
 						isRegistered = true;
+						student.setLastName(info[0]);
+						student.setFirstName(info[1]);
+						student.setStudentID(Integer.parseInt(info[2]));
 						break;
 					}
 	            }
@@ -120,7 +124,10 @@ public class MainMenu {
 					    	break;
 					    case "1":
 					    	clearScreen();
-					    	// TODO: Print profile info
+					    	System.out.println(student.toString());
+					    	System.out.println("[1] View Registered Courses");
+					    	selection = sc.nextLine();
+					    	// TODO: Print out courses
 					    	break;
 					    case "2":
 					    	clearScreen();
