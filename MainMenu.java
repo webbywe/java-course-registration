@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class MainMenu {
@@ -15,6 +17,9 @@ public class MainMenu {
 	private static final String PROFILE = "[1] PROFILE";
 	private static final String REGISTER = "[2] REGISTER";
 
+	// CONSTS
+	private static final int MIN_STUDENTS = 1;
+	private static final int MAX_STUDENTS = 200000;
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -43,7 +48,7 @@ public class MainMenu {
 			    case "2":
 			    	// Create new profile
 			    	clearScreen();
-			    	// TODO: Implement new student profile creation
+			    	createNewProfile(sc);
 			    	break;
 			    default:
 			    	System.out.println("Please enter valid selection");
@@ -58,24 +63,12 @@ public class MainMenu {
 		String studentID;
 		do
 		{
-			clearScreen();
 			System.out.println(EXIT);
 			System.out.println("Please enter your student ID: ");
 			studentID = sc.nextLine();
 			
 			// Create an instance of File for Student.csv file.
-	        File file = new File("Students.csv");
-	        
-	        if (!file.exists())
-	        {
-	            try 
-	            {
-					file.createNewFile();
-				} catch (IOException e) 
-	            {
-					e.printStackTrace();
-				}
-	        } 
+	        File file = createStudentFile("Students.csv");
 	        
 	        try {
 	            // Create a new Scanner object which will read the data
@@ -121,6 +114,7 @@ public class MainMenu {
 				    switch(selection)
 				    {
 					    case "0":
+					    	clearScreen();
 					    	break;
 					    case "1":
 					    	clearScreen();
@@ -143,7 +137,76 @@ public class MainMenu {
 			}
 		}
 		while(!studentID.equals("0"));
-		clearScreen();
+	}
+	
+	/*
+	 * Create new student profile
+	 */
+	public static void createNewProfile(Scanner sc)
+	{
+		String lastName;
+		String firstName;
+		int studentID;
+		
+		System.out.println("Please enter your Last Name ");
+		lastName = sc.nextLine();
+		System.out.println("Please enter your First Name: ");
+		firstName = sc.nextLine();
+		
+		studentID = getRandomInteger(MIN_STUDENTS,MAX_STUDENTS);
+		// TODO: add check if studentID is already in Registrar.csv. If it is then get
+		// another random number.
+		
+		File file = createStudentFile("Students.csv");
+		
+		
+		try {
+			PrintWriter pw = new PrintWriter(new FileOutputStream(file,true));
+			pw.print(lastName + ",");
+			pw.print(firstName + ",");
+			pw.println(studentID);
+			
+			pw.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Return File object based on fileName param. If it doesn't exist
+	 * create new file.
+	 */
+	public static File createStudentFile(String fileName)
+	{
+		// Create an instance of File for Student.csv file.
+        File file = new File(fileName);
+        
+        if (!file.exists())
+        {
+            try 
+            {
+				file.createNewFile();
+				PrintWriter pw = new PrintWriter(file);
+				
+				pw.print("Last Name,");
+				pw.print("First Name,");
+				pw.println("Student ID");
+				
+				pw.close();
+			} catch (IOException e) 
+            {
+				e.printStackTrace();
+			}
+        }
+        
+        return file;
+	}
+	
+	/* 
+	 *  Returns random integer between minimum and maximum range 
+	 */ 
+	public static int getRandomInteger(int minimum, int maximum){
+		return ((int) (Math.random()*(maximum - minimum))) + minimum; 
 	}
 	
 	/*
