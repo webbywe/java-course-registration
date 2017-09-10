@@ -7,13 +7,13 @@ public class MainMenu {
 	// Main menu selections
 	private static final String EXIT = "[0] EXIT";
 	private static final String LOGIN = "[1] LOGIN";
-	private static final String REGISTER = "[2] REGISTER";
+	private static final String CREATE_PROFILE = "[2] CREATE PROFILE";
 	
 	
 	// Login sub menu selections
 	private static final String LOGOUT = "[0] LOGOUT";
 	private static final String PROFILE = "[1] PROFILE";
-	private static final String COURSES = "[2] COURSES";
+	private static final String REGISTER = "[2] REGISTER";
 
 	
 	public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class MainMenu {
 		    System.out.println("Please make a selection");
 		    System.out.println(EXIT);
 		    System.out.println(LOGIN);
-		    System.out.println(REGISTER);
+		    System.out.println(CREATE_PROFILE);
 		    
 		    String selection = sc.nextLine();
 		    
@@ -41,9 +41,9 @@ public class MainMenu {
 			    	loginPage(sc);
 			    	break;
 			    case "2":
-			    	// Student Registration Page Logic (Add new student)
+			    	// Create new profile
 			    	clearScreen();
-			    	// TODO: Implement registration
+			    	// TODO: Implement new student profile creation
 			    	break;
 			    default:
 			    	System.out.println("Please enter valid selection");
@@ -115,7 +115,7 @@ public class MainMenu {
 					System.out.println("Please make a selection: ");
 					System.out.println(LOGOUT);
 				    System.out.println(PROFILE);
-				    System.out.println(COURSES);
+				    System.out.println(REGISTER);
 				    selection = sc.nextLine();
 				    
 				    switch(selection)
