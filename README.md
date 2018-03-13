@@ -1,1 +1,3 @@
-# team-a-2017
+Team A JAVA
+
+Course registration to allow students to register.
